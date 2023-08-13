@@ -117,7 +117,7 @@ function love.draw()
     push:start()
 
     -- scrolling background drawn behind every state
-    love.graphics.draw(gTextures['background'], backgroundX, 0)
+    love.graphics.draw(gTextures['background'], backgroundX, 0) 
     
     gStateMachine:render()
     push:finish()

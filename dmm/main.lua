@@ -1,6 +1,5 @@
 
 require 'src/Dependencies'
-test = 10
 
 function love.load()
     love.window.setTitle('match-3')
@@ -16,6 +15,7 @@ function love.load()
     })
     
     gStateMachine:change('start')
+    love.keyboard.keysPressed = {}
 end
 
 function love.resize(x, y)
@@ -26,6 +26,12 @@ function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
     end
+
+    love.keyboard.keysPressed[key] = true
+end
+
+function love.keyboard.wasPressed(key)
+    return love.keyboard.keysPressed[key]
 end
 
 LOOPING_POINT = 520
@@ -38,19 +44,19 @@ function love.update(dt)
     gStateMachine:update(dt)
 
     Timer.update(dt)
+
+    love.keyboard.keysPressed = {}
 end
 
 function love.draw()
     Push:start()
 
-    love.graphics.setColor(1, 1, 1, 150/255)
-    love.graphics.draw(gTextures['background'], -Current_Point, 0)
-    
+    love.graphics.draw(gTextures['background'], -Current_Point, 0)    
     love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.setFont(gFonts['small'])
-    love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
+    love.graphics.setFont(gFonts['big'])
+    love.graphics.print(tostring(love.timer.getFPS()), 0, 0)
 
     gStateMachine:render()
 
     Push:finish()
-end
+end   

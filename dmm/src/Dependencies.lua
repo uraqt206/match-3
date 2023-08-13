@@ -10,8 +10,11 @@ require 'src/StateMachine'
 require 'src/Util'
 
 -- source code
+require 'src/Tile'
+require 'src/Board'
 require 'src/states/BaseState'
 require 'src/states/StartGame'
+require 'src/states/PlayingState'
 
 gTextures = {
     ['background'] = love.graphics.newImage('graphics/background.png'),
@@ -19,9 +22,9 @@ gTextures = {
 }
 
 gFonts = {
-    ['small'] = love.graphics.newFont('fonts/font.ttf', 16),
-    ['medium'] = love.graphics.newFont('fonts/font.ttf', 32),
-    ['big'] = love.graphics.newFont('fonts/font.ttf', 48),
+    ['small'] = love.graphics.newFont('fonts/font.ttf', 8),
+    ['medium'] = love.graphics.newFont('fonts/font.ttf', 16),
+    ['big'] = love.graphics.newFont('fonts/font.ttf', 32),
 }
 
 gFrames = {
@@ -39,4 +42,5 @@ gColors = {
 
 gStateMachine = StateMachine {
     ['start'] = function() return StartGame() end,
+    ['playing'] = function() return PlayingState() end,
 }
